@@ -7,17 +7,22 @@ library(stringr)
 rm(list = ls())
 cat("\014") 
 
+
+# input: input_IDEA_survey, output_IDEA_appendix (from 1_appendix)
+# output: output_PFR_database
+
+
 # Data management to build PFR Index panel.
 ###########################################
 
 
 # import datasets IDEA survey & appendix
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/1) PFR_index")
-idea_survey <- read.csv("IDEA_survey.csv")
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/1) PFR_index")
+idea_survey <- read.csv("input_IDEA_survey.csv")
 idea_survey$ISO <- idea_survey$ISO %>% 
   as.character()
 
-idea_appendix <- read.csv("appendix.csv")
+idea_appendix <- read.csv("output_IDEA_appendix.csv")
 idea_appendix$iso3c <- idea_appendix$iso3c %>% 
   as.character()
 
@@ -78,7 +83,7 @@ t_survey_appendix <- t_survey_appendix %>%
   select(-Country.x) %>% 
   arrange(iso3c, question) 
 
-write.csv(t_survey_appendix, "pfri_database.csv")
+write.csv(t_survey_appendix, "output_PFR_Index_database.csv")
 
 rm(list = ls())
 cat("\014") 

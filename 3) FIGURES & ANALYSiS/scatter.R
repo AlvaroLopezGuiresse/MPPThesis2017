@@ -1,6 +1,12 @@
 
 
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/3) FIGURES & ANALYSiS")
+library(plotly)
+library("RColorBrewer")
+
+
+
+
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS")
 rm(list = ls())
 
 
@@ -30,7 +36,7 @@ idea_excel <- idea_excel %>%
   filter(year_panel >= 2006 & year_panel <= 2015)
 
 # import dataframes latin america new database (includes controls)
-idea_R <- read.csv("database_new_R.csv")
+idea_R <- read.csv("database.csv")
 
 # merge datasets latin america
 df <- full_join(idea_excel, idea_R, by = c("iso3c", "year_panel"))
@@ -71,12 +77,12 @@ p
 # Crear Scatterplot con datos de 2006
 df2006 <- df[(df$year_panel== 2006),]
 
-AnalisisAL2006 <- AnalisisAL2006[!(AnalisisAL2006$country=="Haiti"),]
+AnalisisAL2006 <- df2006[!(df$iso3c=="HTI"),]
 
-p2006 <- plot_ly(AnalisisAL2006, x = ~idea_pct, y = ~CoCRecoded, color = ~wefji, marker = list(size = 30),
+p2006 <- plot_ly(AnalisisAL2006, x = ~idea_pct, y = ~CoC_recoded, color = ~wefji, marker = list(size = 30),
                  text= ~iso3c, type='scatter', mode= 'markers', title="Effect of Political Finance Regulation on Control of Corruption 2006") %>% 
   add_annotations(x = AnalisisAL2006$idea_pct,
-                  y = AnalisisAL2006$CoCRecoded,
+                  y = AnalisisAL2006$CoC_recoded,
                   text = rownames(AnalisisAL2006$iso3c),
                   xref = "x",
                   yref = "y",
@@ -93,6 +99,16 @@ p2006 <- plot_ly(AnalisisAL2006, x = ~idea_pct, y = ~CoCRecoded, color = ~wefji,
 p2006
 
 
-# scatter con ggplot 2015
-p <- ggplot(df2015, aes(x = idea_pct_recoded, y = CoC_recoded, colour = wefji)) +
-  geom_point(size = 10)
+# # scatter con ggplot 2015
+# mid<-mean(df2015$wefji)
+# p <- ggplot(df2015, aes(x = idea_pct_recoded, y = CoC_recoded, colour = wefji)) +
+#   geom_point(size = 10) +
+#   scale_color_gradient(low="blue",
+#                         high="red")
+# p
+
+
+
+
+
+

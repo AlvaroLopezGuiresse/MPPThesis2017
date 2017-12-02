@@ -6,12 +6,17 @@ rm(list = ls())
 cat("\014")
 
 
+
+# input: output_PFR_Index_database (from 2_PFRI_panel)
+
+
+
 # Data management to calculate PFR Index.
 ##########################################
 
 
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/1) PFR_index")
-df <- read.csv("pfri_database.csv")
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/1) PFR_index")
+df <- read.csv("output_PFR_Index_database.csv")
 
 
 # index calculation pfri_level: before year enaction == 0, after year enaction ==1.
@@ -125,8 +130,8 @@ panel_pfr <- full_join(pfr_subindex, pfr_index, by = c("iso3c", "year_panel"))
 panel_pfr <- panel_pfr %>% 
   rename(PFR_index = pfri_pct)
 
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/2) DATABASE")
-write.csv(panel_pfr, "panel_pfr_index.csv")
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/2) DATABASE")
+write.csv(panel_pfr, "output_panel_pfr_index.csv")
 
 
 

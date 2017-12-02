@@ -12,8 +12,8 @@ library(data.table)
 rm(list = ls())
 cat("\014") 
 
-# input: IDEA_appendix.xlsx
-# output: appendix.csv
+# input: input_IDEA_appendix.xlsx
+# output: output_IDEA_appendix.csv
 
 
 # Data management IDEA appendix.
@@ -42,8 +42,8 @@ clean_text <- function(whyisthis) {
 
 
 # import IDEA appendix
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/1) PFR_index")
-idea_appendix <- import("IDEA_appendix.xlsx")[, 1:4]
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/1) PFR_index")
+idea_appendix <- import("input_IDEA_appendix.xlsx")[, 1:4]
 idea_appendix <- idea_appendix %>% fill(Country)
 idea_appendix_0 <- idea_appendix
 
@@ -131,7 +131,7 @@ idea_appendix <- idea_appendix %>%
 idea_appendix <- idea_appendix[ , -which(names(idea_appendix) %in% drop)] %>% 
   as.data.frame()
 
-write.csv(idea_appendix, "appendix.csv")
+write.csv(idea_appendix, "output_IDEA_appendix.csv")
 
 
 rm(list = ls()) 

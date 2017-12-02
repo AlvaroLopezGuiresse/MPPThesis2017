@@ -2,11 +2,14 @@
 
 library(rworldmap)
 
+
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS")
+
 rm(list = ls())
 
 # heatmaps
 
-idea_global <- read.csv("database_full.csv")
+idea_global <- read.csv("database_old_excel.csv")
 
 idea_global <- idea_global %>% 
   rename(iso3c = Ticker, year_panel = Year) %>% 
@@ -32,7 +35,7 @@ map1 <- mapCountryData(n1, nameColumnToPlot = "idea_pct", mapTitle = "PFR Index 
 
 # heatmap latinoamerica
 n2 <- joinCountryData2Map(idea_global_2015, joinCode="ISO3", nameJoinColumn="iso3c")
-mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="Political Finance Regulation Index 2015 (Latin America)", mapRegion="latin america", colourPalette = "heat")
+map2 <- mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="Political Finance Regulation Index 2015 (Latin America)", mapRegion="latin america", colourPalette = "heat")
 
 
 

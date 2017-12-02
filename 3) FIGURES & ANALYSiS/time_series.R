@@ -1,9 +1,12 @@
+
 library(dplyr)
+library(ggthemes)
+library(scales)
 
 # time series plots
 
 
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/3) FIGURES & ANALYSiS")
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS")
 rm(list = ls())
 
 # import IDEA Excel
@@ -21,7 +24,7 @@ idea_excel <- idea_excel %>%
   filter(!iso3c == "TWN")
 
 # import idea R
-idea_R <- read.csv("database_new_R.csv")
+idea_R <- read.csv("database.csv")
 
 # latin american sample
 countries <- c("ARG", "BOL", "BRA", "CHL", "COL", "CRI", "DOM", "ECU", "GTM", 
@@ -33,7 +36,9 @@ df_01 <- idea_excel %>%
   summarise(pfr = sum(idea_pct) / n())
 
 p <- ggplot(df_01, aes(x = year_panel, y = pfr, color = un_region_name)) +
-  geom_line()
+  geom_line() +
+  theme_hc() +
+  scale_colour_hc()
 p
 
 

@@ -8,6 +8,13 @@ library(zoo)
 
 
 
+# input: output_panel_pfr_index.csv from script 3_PFRI_index_calculation.R.
+# input_eclac_public_expenditure.csv, input_wef_judicial_independence.xlsx,
+# output: output_regressors_database.csv
+
+
+
+
 rm(list = ls())
 cat("\014")
 
@@ -21,8 +28,8 @@ countries <- c("ARG", "BOL", "BRA", "CHL", "COL", "CRI", "DOM", "ECU", "GTM",
 
 # WEF JUDICIAL INDEPENDENCE.
 ############################
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/2) DATABASE")
-wefji <- read.xlsx("wef_judicial_independence.xlsx", 1)
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/2) DATABASE")
+wefji <- read.xlsx("input_wef_judicial_independence.xlsx", 1)
 
 # gather to long format.
 t_wefji <- gather(wefji, key = country, value = wefji, Albania:Zimbabwe)
@@ -62,7 +69,7 @@ wb <- wb %>%
 
 # ECLAC
 ########
-p_expenditure <- read.csv("eclac_public_expenditure.csv")
+p_expenditure <- read.csv("input_eclac_public_expenditure.csv")
 colnames(p_expenditure)[8:27] <- c(1996:2015)
 p_expenditure <- p_expenditure[,-(2:7)] 
 p_expenditure <- gather(p_expenditure, year, value, -country)
@@ -91,7 +98,7 @@ df <- df %>%
 
 
 # import PFR Index.
-pfr_index_1925_2016 <- read.csv("panel_pfr_index.csv")
+pfr_index_1925_2016 <- read.csv("output_panel_pfr_index.csv")
 
 # arrange dataset.
 pfr_index <- pfr_index_1925_2016 %>% 
@@ -102,11 +109,11 @@ df_01 <- full_join(df, pfr_index, by = c("iso3c", "year_panel"))
 
 df_01 <- df_01 %>% 
   group_by(iso3c) %>% 
-  mutate_at(vars(OS, PF, PI, RS, PFR_index), funs(zoo::na.locf(., na.rm = F)))
+  mutate_at(vars(OS, PF, PI, RS, PFR_index), funs(zoo::na.locf(., na.rm = F))) %>% 
+  select(-X)
 
-write.csv(df_01, "database.csv")
 
-setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis/3) FIGURES & ANALYSiS")
+setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS")
 write.csv(df_01, "database.csv")
 
 
