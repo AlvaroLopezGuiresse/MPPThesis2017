@@ -29,7 +29,7 @@ idea_global_2015 <- idea_global %>%
   select(iso3c, idea_pct) %>% 
   as.data.frame()
 
-write.csv(idea_global_2015, "figure_ii.csv")
+write.csv(idea_global_2015, "figure_ii_vi.csv")
 
 
 

@@ -38,9 +38,10 @@ t_wefji <- gather(wefji, key = country, value = wefji, Albania:Zimbabwe)
 t_wefji$iso3c <- countrycode(t_wefji$country, 'country.name', 
                                 'iso3c', warn = TRUE)
 
-wefji <- t_wefji %>% filter(iso3c %in% countries) %>% 
-  arrange(country, year) %>% 
-  select(iso3c, year, wefji)
+wefji <- t_wefji %>% 
+  filter(iso3c %in% countries) 
+
+
 
 
 
@@ -63,7 +64,7 @@ colnames(wb)[9] <- "tertiaryschool"
 colnames(wb)[2] <- "country.wb"
 
 wb <- wb %>% 
-  select(iso3c, year, gdp, gini, lifeexpectancy, natres, ruralpop, tertiaryschool)
+  dplyr::select(iso3c, year, gdp, gini, lifeexpectancy, natres, ruralpop, tertiaryschool)
 
 
 
@@ -80,7 +81,7 @@ p_expenditure$iso3c[p_expenditure$country=="REP. DOMINICANA"] <- "DOM"
 p_expenditure <- p_expenditure %>% 
   filter(year %in% years) %>% 
   filter(iso3c %in% countries) %>% 
-  select(iso3c, year, value) %>% 
+  dplyr::select(iso3c, year, value) %>% 
   rename(p_expenditure = value)
 
 p_expenditure$year <- p_expenditure$year %>% 
@@ -109,8 +110,7 @@ df_01 <- full_join(df, pfr_index, by = c("iso3c", "year_panel"))
 
 df_01 <- df_01 %>% 
   group_by(iso3c) %>% 
-  mutate_at(vars(OS, PF, PI, RS, PFR_index), funs(zoo::na.locf(., na.rm = F))) %>% 
-  select(-X)
+  mutate_at(vars(OS, PF, PI, RS, PFR_index), funs(zoo::na.locf(., na.rm = F))) 
 
 
 setwd("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS")

@@ -37,7 +37,7 @@ clean_text <- function(whyisthis) {
   if (is.na(years)) return(NA)
   
   # Return output
-  return(max(years, na.rm = T))
+  return(min(years, na.rm = T))
 }
 
 
