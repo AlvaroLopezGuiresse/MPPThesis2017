@@ -29,16 +29,7 @@ idea_global_2015 <- idea_global %>%
   select(iso3c, idea_pct) %>% 
   as.data.frame()
 
-n1 <- joinCountryData2Map(idea_global_2015, joinCode="ISO3", nameJoinColumn= "iso3c")
-map1 <- mapCountryData(n1, nameColumnToPlot = "idea_pct", mapTitle = "PFR Index 2015", colourPalette = "heat", catMethod = "pretty")
-
-
-# heatmap latinoamerica
-n2 <- joinCountryData2Map(idea_global_2015, joinCode="ISO3", nameJoinColumn="iso3c")
-map2 <- mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="Political Finance Regulation Index 2015 (Latin America)", mapRegion="latin america", colourPalette = "heat")
-
-
-
+write.csv(idea_global_2015, "figure_ii.csv")
 
 
 
