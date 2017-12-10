@@ -1,0 +1,691 @@
+---
+fontsize: 12
+geometry: margin=3cm
+
+link-citations: yes
+citecolor: blue
+linkcolor: blue
+csl: templates/apa.csl
+
+bibliography: templates/references.bib
+classoption: twoside
+
+output:
+  pdf_document:
+    includes:
+      in_header: templates/header.tex
+---
+
+\pagebreak
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
+  error = FALSE, cache = 3, fig.pos = 'h', fig.align = 'center',
+  fig.width = 6, fig.height = 3)
+knitr::opts_knit$set(root.dir = "/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/HealthandCrime-master")
+```
+
+```{r wd, eval=FALSE}
+source('packages.R')
+library(plotly)
+library(rworldmap)
+
+```
+
+<!-- Title page styling -->
+\pagenumbering{roman}
+\thispagestyle{empty}
+\begin{centering}
+
+\vspace{4 cm}
+
+\Huge
+
+{\bf How does political finance regulation influence control of corruption? \\ \Large Improving good governance in Latin America}
+
+\vspace{1 cm}
+{\color{gray} \line(1, 0){250}}
+\vspace{2 cm}
+
+\Large
+Alvaro Lopez
+Mario Rodriguez
+Mariano Valentini
+
+\normalsize
+Master of Public Policy
+
+Class of 2017
+
+\vspace{2 cm}
+
+Completed under the advisement of \href{https://www.hertie-school.org/en/who-we-are/profile/person/mungiu-pippidi/}{Prof. Alina Mongiu-Pippidi, Ph.D.}
+
+April 2017
+
+\vspace{3 cm}
+
+\normalsize
+\includegraphics[width=.23  \textwidth]{templates/logo.png}
+
+\href{https://www.hertie-school.org/en/}{Hertie School of Governance} 
+
+\end{centering}
+
+\clearpage
+
+\newpage
+\thispagestyle{empty}
+\vspace{4 cm}
+\small
+
+
+
+\normalsize
+\clearpage
+\newpage
+\setcounter{page}{1}
+
+
+\newpage
+
+# Abstract
+
+In this paper, we address the question of how political finance regulation affects control of corruption in Latin America from a quantitative perspective. We present a Political Finance Regulation Index with panel data from 180 countries over 20 years (1996-2015). This index was developed using the IDEA Political Finance Database, and once created, was applied to assess the relationship between political finance regulation and control of corruption.
+
+In order to do this, we use the equilibrium model of control of corruption developed by Mungiu-Pippidi (2015). We also included judicial independence and public investment, considered as a constraint and an opportunity to corrupt, respectively. Lastly, we use control variables for level of development. 
+
+Results show that, in Latin America, increases in political finance regulation are related with a deterioration of control of corruption. This relationship is statistically significant in the panel estimations. Inversely, the negative relationship between regulation and control of corruption becomes positive in countries with high levels of judicial independence. In a similar way, increases in opportunities to corrupt, represented by levels of public investment, have a significant and negative effect in control of corruption. 
+
+
+\newpage
+<!-- \% Table of Contents Styling -->
+\thispagestyle{empty}
+\tableofcontents
+\clearpage
+\pagebreak
+
+\pagenumbering{arabic}
+
+# Introduction
+
+Honest political parties play a vital role in strengthening democracies, functioning as a bridge between citizens and their governments. However, corrupt parties can seriously damage a democracy by undermining public trust, increasing voters??? disillusionment and even leading to authoritarian regimes. (Blechinger, 2002) This is why the corruption of political parties is one of the most critical threats to democracies, especially young ones. 
+
+Today, a relative majority of countries are organized around regular elections and people are involved in public affairs more than ever. Yet, corruption is expanding among new democracies instead of decreasing. (Mungiu-Pippidi, 2015)
+Latin America is a perfect example of this situation. Even though democracies in the region experienced an important consolidation in the last decades, corruption scandals related to the influence of money in politics seem to have increased. Issues such as the illicit funding of candidates and parties by criminal organizations, as well as the misuse of public resources by parties in government, have been gaining traction in the public agenda.  
+
+This paper focuses on how political finance regulations have influenced control of corruption. In other words, it will seek to identify if political finance regulation has been an effective constraint of corruption in Latin America. By developing a Political Finance Regulation (PFR) Index, this study aims to identify how different levels and types of party finance regulation interact with control of corruption in the region. 
+
+Furthermore, as the literature states that political corruption is a multidimensional problem and we present corruption with an equilibrium model, we use public investment as a measure of opportunities for corruption. Using data from capital expenditures from Latin American countries, we will consider how control of corruption interacts with both political finance regulation and discretionary public investment in the region. Public investment and political finance regulation will be analysed in conjunction with judicial independence, another fundamental variable for control of corruption. ???
+
+
+# Literature Review {#lit.review}
+
+## From Corruption to Control of Corruption
+
+Corruption is not harmless and has indisputable negative consequences for societies. It leads to massive brain drain and produces disincentives for hard work and integrity. It also affects fair competition and gender equality, in addition to distorting public spending and equal access to public jobs. (Mungiu-Pippidi, 2015)
+
+Notwithstanding the importance of the concept, the definition of corruption represents a challenge. According to Mungiu-Pippidi (2015, p. 3), there seems to be an agreement around the idea that ???corruption involves some undue private profit (for someone) due to the abuse of an entrusted public authority???. 
+
+Indeed, since 2005, the United Nations Convention Against Corruption (UNCAC) provided a frame for the concept of corruption. Even though this instrument does not offer a clear definition of the concept, the Convention states in its first article that one of its purposes is ???[t]o promote integrity, accountability and proper management of public affairs and public property.??? (UNCAC, Art. 1.c) 
+
+According to Mungiu-Pippidi (2015), the classic definition of corruption as a ???behaviour which deviates from the formal duties of a public role because of private-regarding (personal, close family, private clique) pecuniary or status gains; or violates rules against the exercise of certain types of private-regarding influence??? (p. 11) highlights the connection between the public and the private spheres. However, this definition does not consider situations where ???laws and policies themselves are corrupt and seek to create legal privileges for those connected with the source of authority granting the privilege???. (p. 11) 
+
+Thus, the key question is how a certain society can constrain the missuses of public resources by an individual or a group in their own and private benefit, and guarantee that the state serves the social wellbeing. Thus, Mungiu-Pippidi (2015) addresses the issue of corruption, not from an individual perspective, but from a societal one. The difference is that while the former would be aimed at the undue profits made by individuals due to the abuse of public authority, the latter sees corruption ???as an intrinsic part of certain governance context, a social allocation mode???. (p. 19)
+
+In a theoretical-practical approach, the author turns the focus from the idea of corruption to control of corruption, defined as ???a given society??s capacity to constrain the use of public authority to generate private rents detrimental to overall social welfare???. (Mungiu Pippidi, 2015, p. 18)
+
+This approach exceeds the notion of corruption as a simple aggregation of individual corrupt acts. Conversely, it focuses on how institutions and the rules of the game determine the allocation of public resources. Mungiu-Pippidi (2015) highlights the countries with highest levels of control of corruption that managed to develop open and non-discriminative access to institutions. 
+
+Indeed, human agency is indispensable to make progress in governance. It means to move from particularistic societies where states and their institutions are used as instruments for particular private profits, to more ethical universalistic societies, where institutions seek out general welfare. (Mungiu-Pippidi, 2015) 
+
+Based on the understanding of corruption as equilibrium between costs and benefits, Mungiu-Pippidi (2015) states that ???the ideal model to explain control of corruption should be an equilibrium model without a principal-agent perspective??? (p. 116), in order to overcome those situations where principals are the ones to be enforced. 
+
+The equilibrium model understands control of corruption as the balance between opportunities or resources to corrupt and deterrents or constraints imposed by society as a whole. Indeed, this approach is aimed at the collective capacity to enforce good governance, which means the capacity of a society to reduce particularistic situations and increase ethical universalism among their institutions. (Mungiu-Pippidi, 2015)
+
+Then, the equilibrium model formula of control of corruption developed by Mungiu-Pippidi (2015) is: 
+???Control of corruption = Constraints (Legal + Normative) ??? Opportunities (Power Discretion + Material Resources)???.  (p. 117)
+Based on this model, we seek to address a central issue of particularistic societies and corruption. When ethical universalism is not the norm, private entities usually offer favours to political parties and political candidates, which are expected to be reciprocated once that party/person is in charge of public resources. (Mungiu-Pippidi, 2015, p. 16)
+Scholars have analysed a significant dimension of control of corruption related to this problem: political finance regulation. However, it seems that there is not an agreement regarding the impact of this approach on the control of corruption. While some specialists and international organisations encourage states to adopt a broader regulatory framework, some research argues that those regulations are limited, since they cannot prevent the influence of money. 
+The discussion regarding political finance regulation can be tackled from different theoretical angles and regional perspectives. We will focus on understanding how political finance regulations have influenced control of corruption.
+
+## Political Finance 
+
+Even though political finance usually refers to money flowing in the political process, we will use the definition of political finance as ???the (legal and illegal) financing of on-going political party activities and electoral campaigns (in particular, campaigns by candidates and political parties, but also by third parties).??? (IDEA, 2014, p. 2)
+
+Within this context, internal political parties??? behaviour, availability of state resources and private founders?? activities, are some of the elements that comprise the realm of political finance. Regulation of at least some of these matters has been adopted by most states in the last decades. Political finance regulation, then, looks to prevent the missuses of money in politics, as well as to provide the necessary framework to enforce some mandates and sanction those who violates them. (IDEA, 2014, p. 2)
+
+Indeed, political finance regulation is seen as a key variable of more transparent and legitimate democracies. The need to regulate money in politics is usually considered as an indispensable step to diminish the influence of big donors over candidates and parties. The Global Commission on Elections, Democracy and Security, for instance, stated that "the failure to regulate political finance threatens to hollow out democracy and rob it of its unique strengths". (IDEA, 2014, p. IV)
+
+However, there also seems to be a general agreement on the conviction that more regulation does not necessarily mean more transparency or a better balance of power between those with money and citizens in general. Certainly, IDEA concludes that in some situations, depending on the social-political context and/or the aims of the regulation, a high level of regulation may be not desirable. (IDEA, 2014) All in all, this shows an open discussion about the capacity of political finance regulation to influence control of corruption within states.
+
+## The Link between Political Finance and Corruption
+
+The scholar debate about political finance can be traced back decades. The issue was discussed in the 1940s, when specialists could not reach an agreement about how to address limitations to contributions and expenditures of candidates and parties over electoral campaigns in the US. (Overacker, 1941)
+
+To tackle the problem of the power of the purse for the presidential campaign in 1940, the US Congress decided to increase party finance regulations. There were already some limitations to the amount of contributions and total expenditures of candidates and parties since 1911. Nevertheless, through the Hatch Act II, Congress also limited the amount of money that an individual could contribute to a national committee and the level of expenditures permitted to these agencies. (Overacker, 1941)
+
+The results of the new legal framework were poor. Its subjects adopted deliberate strategies to circumvent the law without violating its letter; both major US parties decentralized the collection and distribution of funds. Indeed, Overacker (1941) concluded that the endeavour to regulate camping funds was "ambiguous, unworkable, and conducive to unhealthy political practices" (p.724). Based on the evidence, she disputed the advice from other specialists who were in favour of more party finance regulation and subsequently supported the idea of increasing the publicity of party funding instead of passing new legal prohibitions. (Overacker, 1941)
+
+After linking a party and campaign expenditure index from the early 1960s and Transparency International???s (TI) Corruption Perceptions Index (CPI) from 1995 to 1997, Heidenheimer found a pretty consistent relationship between both rankings. His study covered nine different countries and, taking into account the 30 years gap between both indexes, he concluded that higher campaign expenditure increased corruption. (Heidenheimer, 2010) 
+
+Party finance regulation is not mentioned as a tool to fight corruption, at least, in a direct way. Among the different options analysed by the author to reduce corruption, the need of transparency is recurrent; budget transparency, as well as, government expenditures transparency are hopeful alternatives. (Mauro, 1998) So, depending on how party finance regulation is defined, whether as a rent-seeking generator or a transparency tool, the object of this study can be considered as a corruption opportunity or constraint.
+
+According to Wilcox (2001), there seems to be a general agreement regarding the positive effects of disclosure within the campaign finance system in the US. Indeed, the obligation that candidates, political parties and interest groups reveal their funding sources and how they expend money tends to be accepted as a way to reduce corruption.
+
+According to Scarrow (2004), political finance is one of the most problematic regulatory areas of democracies, because it is connected to the aim of guaranteeing a certain minimum level of political equality in a context where wealth is unequally distributed. After analysing party finance reforms in Germany and England, Scarrow noted that scandals had weak consequences in regulatory results, unless one party advances the cause. Also, he showed how parties endorsing reform, did not automatically mean they would adopt it. 
+
+Conversely, the deepest effects in party finance reforms were reached thanks to the intervention of non-party regulatory bodies, such as independent commissions appointed by the government, as well as courts of justice, among others. Even in cases of parties willing to compete over party regulation issues, the adoption of self-denying rules may be more successful with external forces suggesting and/or imposing reforms. (Scarrow, 2004)
+
+Moreover, laws are not respected because of a lack of enforcement and political will. Pinto-Duschinsky (2002) underscores the dangers of assuming that the problems of political financing are amenable to legislative remedies, stressing the need for a focus on enforcement. 
+
+Casal B??rtoa et al. (2014) analysed if public funding and political finance regulations are related to the perception of party corruption. Like most of the scholars who tackle this topic, the authors note a lack of research concerning the influence of political finance regulation on corruption. 
+
+Using a dataset developed at Leiden University, with information of political finance aspects in Europe and Latin America, these scholars employ a quantitative approach to verify the assumption that political finance regulation has a positive effect on party corruption trough a comparison of 28 European and 9 Latin American countries. Based on their data, the scholars conclude that more political finance regulation does not mean a lower perception of party corruption. (Casal B??rtoa et al., 2014) 
+The scholars note that political finance regulation does not help to drop the levels of perceived corruption among political parties. According to their study, neither restrictive legal frameworks where the state is the main financial contributor to parties, nor more independent controls, nor higher penalties over illegal funding activities, are correlated to lower levels of party corruption perceptions. Despite the limitations of the study, they conclude the state should not be the only contributor of funding to political parties. (Casal B??rtoa et al., 2014)
+
+## Political Finance and Corruption in Latin America
+
+In Latin America, researchers note a gap between the high density and scope of political finance regulations and money in politics. The main underlying problem in the region is not the lack of regulation, but the inability to enforce rules. Some of the issues shared by countries in the subcontinent that contribute to this problem are low levels of transparency of funding, the inexistence of regional standards for political finance, the loopholes or rigidity of regulation, the infiltration of illicit financing and the impossibility to implement the ruling norms effectively due to the absence of strong monitoring and enforcement agencies. (IDEA, 2014)
+
+Latin America has been making regulatory efforts to improve control over money in politics (Casas- Zamora and Zovatto, 2016). The focus has been set on private contributions and corporate donations bans, television advertising restrictions during political campaigns and stronger penalties for political finance violations. Nevertheless, both old and new regulatory frameworks are weakened by grave implementation problems. (Casas-Zamora, 2016)
+
+The lack of effective control mechanisms, social inequality and clientelism are related to the idea that political finance regulation is a second-generation political reform, which needs a number of economic, social and institutional prerequisites in order to succeed. (Casas-Zamora, 2016) 
+
+Those interested in improving political finance issues should focus on enhancing political finance regulation, monitoring and enforcement; paying special attention to local level political finance corruption; and, facilitating and simplifying the access to political finance information. Also, promoting a comprehensive regulatory approach that integrates campaign finance, conflicts of interest and lobbying activities rules.  (Casas-Zamora, 2016)
+
+## Public Expenditures and its Relation with Corruption
+Complementarily, and based on the equilibrium model developed by Mungiu-Pippidi, this study will also focus on a well-known opportunity to corrupt: public investment. According to Tanzi and Davoodi (1997), higher corruption is related to higher public expenditures in big infrastructure projects in developing countries. The main reason behind this idea is that in societies with low control of corruption, politicians may have incentives to increase public capital spending at the expense of lower expenditures on operations and maintenance (public current expenditures) to get larger illegal commissions from the beneficiary private companies.  
+
+When control of corruption is weak, corrupt politicians have incentives to increase capital expenditures to produce big projects that will demand higher capital budgets and probably will not generate positive results in terms of growth. (Tanzi and Davoodi, 1997)
+
+More recently, it was reaffirmed that corruption emerges as a distortion of the public expenses structure. Indeed, corruption was observed as public expenditures on fuel and energy, culture and public services increased. All of the aforementioned are spending that guarantees more discretion and therefore, more opportunities for corruption. Distortions in public spending function at the expense of social spending like education, health, and social protection, which usually involve more standardization and restrictions. (Delavallade, 2006)
+
+## Judicial Independence: A Precondition for Control of Corruption?
+Judicial independence is another complex concept. For instance, Fiss (1993) underlines three main perspectives to analyse it. He states that judges should be independent not only from the parties of the litigation but also from hierarchical relations within the judiciary, as well as political institutions and the public in general. Conversely, Rose-Ackerman (2007) highlights that judicial independence does not necessarily guarantee judicial transparency. Judges can be independent and corrupt at the same time, since independence can enable them to follow their own interests and benefit from those who make payoffs. 
+
+Nevertheless, the specialized literature tends to agree on common characteristics that define the independence of a judiciary. Some of the most prevalent include: high remunerations; merit-based selection processes; long-term appointments (Cordis, 2009); invulnerability to bribery or intimidations (Carrington, 1998), and judicial integrity and predictability. (Buscaglia and van Dijk, 2003) 
+
+Beyond its definition, opinions regarding the relationship between judicial independence and political corruption tend to be unanimous: with higher judicial independence, political corruption decreases. Rose-Ackerman (2007) observes that judicial independence has a positive relationship with less corruption and more political freedom. Cordis (2009) concludes that judicial independence, as well as constitutional rigidity, is a significant predictor of political corruption. This means that countries where judges have a high level of independence, government officials tend to be less corruptible. 
+
+This is confirmed by an evidence-based study run by Buscaglia  and van Dijk (2003), who conclude that judicial independence and fairness are the most important causes of low and high level corruption in the public sector. Moreover, they underline the relevance of independent judges to prosecute organized crime, even where politics have been captured by it. 
+
+Finally, Mungiu-Pippidi (2015) confirms the existence of a strong correlation between control of corruption and judicial autonomy, highlighting that this variable is a highly significant and robust factor of control of corruption. Furthermore, she considers judicial independence a key constraint for corruption. 
+
+
+
+# Methodology {#method}
+
+Our aim is to study the relation between control of corruption (the dependent variable) and political finance regulation (the independent variable). Following a multivariate model and based on the equilibrium model by Mungiu-Pippidi (2015) we seek to analyse other independent variables such as public investment and judicial independence, considered an opportunity and a constraint of control of corruption, respectively. Figure I shows a graphical representation of this model. 
+
+```{r figure_i, fig.cap="Equilibrium Model (based on Mungiu-Pippidi (2015))", fig.height = 2.5, eval=FALSE}
+
+
+
+```
+
+To measure the variations of the dependent variable control of corruption between countries and across time, we decided to use the index developed by the World Bank for their World Governance Indicators (WGI). The Control of Corruption (CoC) Indicator of the WGI measures ???the extent to which public power is exercised for private gain, including both petty and grand forms of corruption, as well as capture of the state by elites and private interests.??? (Kaufmann et al., 2010, p. 4). The original indicator has a scale of -2.5-2.5 but it was rescaled to 0-10 to avoid negative numbers. With the new scale, 0 is a country with no control of corruption and 10 is a country with the highest control of corruption. The WGI has information about more than 200 countries and goes as far back as 1996. 
+
+In the same sense, there was a need for reliable data to analyse one of the independent variables: political finance regulation. We used the IDEA Political Finance Database to develop a Political Finance Regulation (PFR) Index. IDEA includes more than 180 countries and excludes cases where no elections have been held in the previous 30 years, as well as where political parties are not allowed to exist or register candidates.
+
+IDEA???s Political Finance dataset is comprised of 43 questions, which reflect each country's legislation in the matter. The database has a high response rate, with around 7000 answers from more than 1000 sources. In addition, the dataset provides the exact source and year when the law was enacted on its appendix. 
+
+The responses of the IDEA questionnaire are useful to build a cross-sectional index, but the supplementary information of the legal sources and documents provides an opportunity to trace changes in the legislation through the years. With both sources of information, we built a panel dataset that spans from 1996 to 2015. 
+
+Specifically, every YES response in the IDEA questionnaire was coded with a 1 and every NO with a value of 0. Additionally, a value of 0 was coded for every previous year of the date that the law in the matter was enacted, and a value of 1 since that year onwards. It is worth mentioning that every question taken into account for building the Index was weighted equally. Also, factor analysis was made to test a different possible weighting criteria. The correlation between the equal weighted index and the factor analysis was high. 
+
+To build the PFR Index, we considered only YES-NO questions. Because of this, only 31 questions of the questionnaire where taken into account. In the case of categorical questions (with different options for a YES response), the detail of the response was ignored and only filled with a YES. Qualitative questions in the survey were not taken into account. Moreover, the answers were divided in the four categories of the database:
+
+???	Bans and limits on private income (BLPI), questions 1 to 18. 
+???	Public funding (PF), questions 19 to 28.
+???	Regulation of spending (RS), questions 29 to 34.
+???	Reporting oversight and sanctions (OS), questions 35 to 43.
+
+Following IDEA???s criteria, the few cases with sources of judicial decisions were also taken into account. Additionally, if a question had legislative sources from different years, the oldest date is considered as the year the law was enacted. This has the objective of avoiding favouring specific legislation and to provide methodological simplicity. In this respect, our indicator was more sensible to older legislation in questions with multiple sources.  Moreover, in questions with only one source that was updated on a subsequent year, the index takes into account only the most recent update. Methodologically, this seeks to provide certainty about the moment when the requirements of that particular question count as an affirmative answer. This makes the questions with updated sources more sensible to the most recent regulation. 
+
+The PFR Index is useful for a descriptive analysis of the world???s legislative efforts of party finance. Also, it provides panel data to do an inferential statistical analysis of our region of interest, Latin America, with a model that includes other relevant variables like life expectancy or percentage of rural population.  
+
+For our other independent variable and based on the equilibrium model, we used data from capital expenditures of Latin American countries available from the Economic Commission for Latin America and the Caribbean (ECLAC), a United Nations regional commission to encourage economic cooperation. This information is provided as a percentage of GDP of the 20 countries of Latin America. The information as a percentage does not capture the increase in real terms of these kinds of expenditures, given the economic growth of the region during this time. Taking this into account, we multiplied it with information about GDP in US dollars provided by the World Bank. The ECLAC provides information on capital expenditure as far back as 2003. Nevertheless, we only used data from 2006 to 2015 given the limitation on another relevant variable for our model, judicial independence. 
+
+In this study, we also work with a variable developed by the World Economic Forum (WEF), which measures the independence of the judiciary from influences of the government, individuals, or companies. (WEF, 2016) This indicator has a scale of 0 to 7, with countries with lower scores having less judicial independence than countries with higher scores. This data extends between 2006 and 2015, so a panel data analysis including this variable would only account for ten yearly observations for each country. It is worth mentioning that the WEF Judicial Independence Index excludes Cuba and includes only five years of observations for Haiti, so our analysis for Latin America excludes both countries and only takes into account the remaining members of the ECLAC. Including all of these variables results in an analysis of 18 countries across ten years, or in other words, 180 observations.  
+The gathered information allows performing a panel data analysis, taking into account differences between countries as well as changes over time. We chose to study Latin America because most of its countries have enacted political finance regulation in the recent years but are still fighting to increase its levels of control of corruption. Also, all of the countries in the region are constitutional democracies and have a common colonial past. 
+ 
+
+# Results
+
+This section includes the results of a descriptive and inferential statistical analysis of the variables previously mentioned. All of the figures are based on our calculations and using the aforementioned databases.
+
+## The State of Political Finance Regulation in the World
+
+The results show an overall incidence of Political Finance Regulation in most of the countries in the world and a growing trend of efforts in the matter over the last 20 years. Figure II shows the levels of the PFR Index in 2015. Countries in lighter shades of yellow have lower levels of regulation; inversely, countries in darker red shades have higher ones. In the map one can see clearly the high levels of regulation in Latin America, low levels in Africa and a mixed scenario in Europe and Asia, considering that there is no data in countries like China and Saudi Arabia. 
+
+```{r figure_ii, fig.cap="Worldwide PFR Index, 2015", fig.height = 4.5, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ii.csv")
+
+n1 <- joinCountryData2Map(idea_global_2015, joinCode="ISO3", nameJoinColumn= "iso3c")
+map1 <- mapCountryData(n1, nameColumnToPlot = "idea_pct", mapTitle = "PFR Index 2015", colourPalette = "heat", catMethod = "pretty")
+
+```
+
+
+The yearly increase of regulation is evident in Figure III which shows the changes over time of the PFR Index. This figure displays an increasing trend in the regulation effort in all regions. The slope remains positive for the period 1996-2005, increasing its steepness after 2006. Europe is the region that increased its party finance regulation the most, implementing 55% of regulations, with notable growth after 2010. The Americas and Asia occupy the second and third places respectively in terms of adoption of regulations. 
+
+```{r figure_iii, fig.cap="Worldwide PFR Index, 2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_iii.csv")
+
+df <- df %>% 
+  rename(Region = un_region_name)
+
+p <- ggplot(df, aes(x = year_panel, y = pfr, color = Region)) +
+  geom_line() +
+  ggtitle("Worldwide PFR Index, 2015") +
+  labs(x = "year", y = "PFR.Index") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black"))
+p
+
+
+```
+
+
+
+The increase of Party Finance Regulation has not been reflected in control of corruption. Figure IV displays the increasing trend of the PFR Index but also shows that the average of the CoC Indicator has stagnated and even displays a slight downward trajectory. The evolution of both suggests that the political finance regulation efforts made by different countries are not associated with an overall improvement in the control of corruption.
+
+```{r figure_iv, fig.cap="PFR Index and CoC Indicator time series, 1996-2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_iv.csv")
+
+p <- ggplot(df, aes(x = year_panel)) + 
+  geom_line(aes(y = pfr)) +
+  geom_line(aes(y = (coc-4.8) * (0.5/0.2)), colour = "red") + 
+  scale_y_continuous(sec.axis = sec_axis(~ . * 0.2/0.5 + 4.8, name = "CoC")) +
+  ggtitle("PFR Index and CoC Indicator time series, 1996-2015") +
+  labs(x = "year", y = "PFR.Index") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black"))
+p
+
+
+```
+
+
+
+The overall increase in the PFR Index is reflected in all the categories of the database, although there are some small differences to note. Figure V shows that the regulation area that has increased the most in relative terms in all regions is oversight and sanctions, while the public funding has been the least regulated issue. Nonetheless, the figure displays that all the sub-indexes have increased systematically since 1996. This reflects a widespread trend around the world to increase Party Finance Regulation in a comprehensive manner, including regulations across the whole spectrum. 
+
+```{r figure_v, fig.cap="PFR Sub-Index Level by region, 1996 and 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_v.csv")
+
+df$year_panel <- df$year_panel %>% 
+  as.character()
+
+df$index_type <- df$index_type %>% 
+  as.character()
+  
+df <- df %>% 
+  rename(PFR.Index = pfr, year = year_panel, Sub.Index = index_type) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "blpi_pct", "PI",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "os_pct", "OS",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "pf_pct", "PF",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "rs_pct", "RS",Sub.Index))
+
+p <- ggplot(df) +
+  geom_col(aes(x = year, y = PFR.Index, fill = Sub.Index), position = "dodge") +
+  facet_grid(. ~ un_region_name) +
+  ggtitle("PFR Sub-Index Level by region, 1996 and 2015") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black"))
+  
+
+p
+
+```
+
+
+
+##	Political Finance Regulation and Control of Corruption in Latin America
+
+The worldwide increase in the PFR Index is also reflected in the Latin American region. Figure VI shows that most countries have a medium or a high degree of PFR. However, there are exceptions like Bolivia, Venezuela and Paraguay, which show low levels in the PFR Index. 
+
+```{r figure_vi, fig.cap="PFR Index Latin America, 2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ii_vi.csv")
+
+n2 <- joinCountryData2Map(df, joinCode="ISO3", nameJoinColumn="iso3c")
+map2 <- mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="PFR Index Latin America 2015",mapRegion="latin america", colourPalette = "heat") 
+
+
+```
+
+
+
+Following the worldwide trend, Figure VII shows the evolution for the PFR Index and its subcomponents for Latin America. The regulation category that increased the most is oversight and sanctions. In second place appears regulation on spending, followed by bans and limits on private income and public funding.
+
+```{r figure_vii, fig.cap="PFR Sub-index Time Series in Latin America, 1996 to 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_vii.csv")
+
+df$index_type <- df$index_type %>% 
+  as.character()
+
+df <- df %>% 
+  rename(PFR.Index = pfr, year = year_panel, Sub.Index = index_type) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "blpi_pct", "PI",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "os_pct", "OS",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "pf_pct", "PF",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "rs_pct", "RS",Sub.Index)) %>% 
+  mutate(Sub.Index = ifelse(Sub.Index == "idea_pct", "PFR.Index",Sub.Index)) %>% 
+  filter(!Sub.Index == "PFR.Index")
+
+
+p <- ggplot(df, aes(x = year, y = PFR.Index, color = Sub.Index )) +
+  geom_line() +
+  ggtitle("PFR Sub.Index Time Series in Latin America") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black"))
+  
+p
+
+
+
+```
+
+
+Moreover, Figure VIII shows the levels of the PFR Index in 2006 and 2015 for Latin American countries. Results indicate that Ecuador is the country with the biggest increase in party finance regulation, followed by Mexico and Colombia. Contrarily, Paraguay and Dominican Republic show no change.
+
+```{r figure_viii, fig.cap="PFR Index Level in Latin America, 2006 and 2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_viii.csv")
+
+df$year_panel <- df$year_panel %>% 
+  as.factor() 
+
+df <- df %>% 
+  rename(year = year_panel, PFR.Index = pfr, country = iso3c)
+
+
+
+p <- ggplot(df) +
+  geom_col(aes(x = country, y = PFR.Index, fill = year), position = "dodge") +
+  ggtitle("PFR Index Level in Latin America, 2006 and 2015") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black"))
+
+p
+
+```
+
+As with the rest of the world, in Latin America an increase in the PFR Index is not reflected on the CoC Indicator. Figure IX shows the average change in the level of political finance regulation for the region and the average change of the CoC Indicator from 1996 to 2015. The Figure also shows that while the CoC Indicator slightly improves for the period 1996-2010 in Latin America, this is reversed after year 2011 with a strong deterioration of the levels of corruption.
+
+
+```{r figure_ix, fig.cap="Mean PFR Index and CoC Indicator series in Latin America, 2006-2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ix.csv")
+
+df <- df %>% 
+  rename(PFR.Index = pfr)
+
+p <- ggplot(df, aes(x = year_panel)) + 
+  geom_line(aes(y = PFR.Index)) +
+  geom_line(aes(y = (coc-4) * (0.55/1)), colour = "red") + 
+  scale_y_continuous(sec.axis = sec_axis(~ . * 1/0.55 + 4, name = "CoC")) +
+  ggtitle("Mean PFR.Index and CoC Latin America") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black")) +
+  labs(x = "year")
+p
+
+
+
+```
+
+
+The data shows that countries that increased their regulation the most between 2006 and 2015 are Ecuador, Mexico and Colombia, which is represented in Figure X. This suggests that increases in legislation are not always correlated with a reduction in the control of corruption. Ecuador seems to be the exception by showing an improvement in its control of corruption. In addition, Guatemala, Honduras and Uruguay have also shown improvements in the last decade. 
+
+
+```{r figure_x, fig.cap="PFR Index and World Bank Control of Corruption Change in Latin America, 2006-2015", fig.height = 4, eval=FALSE}
+
+df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_x.csv")
+
+df <- df %>% 
+  mutate(key = ifelse(key == "coc_diff", "CoC", "PFR.Index"))
+
+
+p <- ggplot(df) +
+  geom_col(aes(x = reorder(iso3c, value), y = value, fill = key), position = "dodge") +
+  ggtitle("PFR.Index and CoC change in Latin America") +
+  theme(plot.background = element_rect(size=0.5,linetype="solid",color="black")) +
+  labs(x = "country", y = "Change 2006-2015") +
+   theme(legend.title=element_blank())
+p
+
+```
+
+The WEF Judicial Independence Indicator, as illustrated in Figure X, complements the relation between control of corruption and political finance regulation. Among all Latin American countries, there are three achievers in terms of control of corruption: Chile, Uruguay and Costa Rica. As seen in Figures XI and XII, these countries also have the highest score of judicial independence. Within this group, Uruguay and Costa Rica made a significant amount of efforts regarding political finance regulation from 2006 to 2015, while Chile???s Index did not rise at their pace. Also, Uruguay and Costa Rica improved their CoC Indicator, while Chile??s worsened. This suggests that in countries with high levels of judicial independence, higher political finance regulation leads to an increase of control of corruption.     
+
+
+
+```{r figure_xi, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=FALSE}
+
+
+df2006 <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_xi.csv")
+
+p2006 <- plot_ly(df2006, x = ~idea_pct, y = ~CoC_recoded, color = ~wefji, marker = list(size = 30),
+                 text= ~iso3c, type='scatter', mode= 'markers', title="Effect of Political Finance Regulation on Control of Corruption 2006") %>% 
+  add_annotations(x = df2006$idea_pct,
+                  y = df2006$CoC_recoded,
+                  text = rownames(df2006$iso3c),
+                  xref = "x",
+                  yref = "y",
+                  showarrow = F,
+                  font = list(color = 'white'),
+                  arrowhead = 4,
+                  arrowsize = .5,
+                  ax = 20,
+                  ay = -40) %>% 
+  layout(title ='Party Finance Reform and Control of Corruption 2006', 
+         xaxis = list(title='Political Finance Regulation', range = c(0, 1)), 
+         yaxis = list(title='Control of Corruption', range = c(0, 10)), autosize = T)
+
+p2006
+
+
+```
+
+
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=FALSE}
+
+
+df2015 <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_xii.csv")
+
+p <- plot_ly(df2015, x = ~idea_pct, y = ~CoC_recoded, color = ~wefji, marker = list(size = 30),
+             text= ~iso3c, type='scatter', mode= 'markers', 
+             title="Effect of Political Finance Regulation on Control of Corruption 2006") %>% 
+  add_annotations(x = df2015$idea_pct,
+                  y = df2015$CoC_recoded,
+                  text = rownames(df2015$iso3c),
+                  font = list(color = 'white'),
+                  xref = "x",
+                  yref = "y",
+                  showarrow = F,
+                  ax = 20,
+                  ay = -40) %>%
+  layout(title ='Party Finance Reform and Control of Corruption 2015', 
+         xaxis = list(title='Political Finance Regulation', range = c(0, 1)), 
+         yaxis = list(title='Control of Corruption', range = c(0, 10)), autosize = T)
+p
+
+
+
+```
+
+
+## Panel Regression Model of Latin America
+
+To further explore the relationship between control of corruption, political finance regulation and judicial independence, inferential statistics are necessary, allowing to further include other variables like public investment, as well as control for level of development. This model includes 18 countries of Latin America from 2006 to 2015. 
+
+### Variable Description
+As explained in the methodology chapter, the dependent variable is control of corruption, while the independent variables are political finance regulation, public investment and judicial independence, using the previously mentioned indicators. The regression model will intentionally resemble the equilibrium model described in the theoretical section of this study. In addition, life expectancy and the percentage of rural population and are included as control variables for level of development.
+
+### Simple Regression Model 
+Table I shows the simple regression model, where results 1 to 9 are estimated using pooled OLS, fixed effects (FE) and random effects (RE). The first of the following equations represents 1 to 3, the second 4 to 6 and the third 7 to 9:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \epsilon_{it}
+\end{equation}
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PI_{it} + \epsilon_{it}
+\end{equation}
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} JI_{it} + \epsilon_{it}
+\end{equation}
+
+$\beta_{fe}$ 
+
+With respect to the results, party finance regulation has a significant positive effect on control of corruption in a pooled OLS model. This result is reversed when accounting for idiosyncratic characteristics of each country in panel estimations. Public investment and judicial independence have the expected signs, negative and positive, respectively. Thus, an increase in public investment is associated with deterioration in control of corruption. Inversely, increases in judicial independence are correlated with improvements in the dependent variable. Both regressors are statistically significant at usual levels of confidence
+
+
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+
+
+
+```
+
+
+
+
+
+TABLE I. 
+
+
+
+
+
+
+
+
+
+### Multivariate Regression Model 
+
+To better reflect the equilibrium model, a multivariate regression is needed. The multivariate regression model is estimated in equations 1 to 9. Results for pooled OLS, fixed effects (FE) and random effects (RE) are presented. Several results are offered to assess the robustness of the analysis. The equations for the models are the following.
+The equation for 1 to 3 is:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it} + \epsilon_{it}
+\end{equation}
+
+The equation for 4 to 6 is:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it} + \beta{4} JI_{it} PFR_{it} + \beta{5} JI_{it} PI_{it}  +\epsilon_{it}
+\end{equation}
+
+The equation for 7 to 9 is:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it} + \beta{4} JI_{it} PFR_{it} + \beta{5} JI_{it} PI_{it} + RP_{it} + LE_{it} +\epsilon_{it}
+\end{equation}
+
+The results are reflected in Table II and III. Number 10 shows a fixed effects model of the last equation with robust standard errors to correct for heteroscedasticity and serial correlation, which were found after running regression diagnostics. The results of these tests can be found in the appendix. The estimated coefficients maintain their sign and statistical significance, as well as similar magnitude.
+
+The tables show that increases in political finance regulation are related with a deterioration of control of corruption in Latin America. This relationship is statistically significant in the panel estimations. Inversely, the negative relationship between regulation and control of corruption becomes positive in countries with high levels of judicial independence. Furthermore, for countries with high levels of judicial independence, an increase in political finance regulation has a positive effect on control of corruption.
+
+
+
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+TABLE II
+
+
+
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+
+
+
+```
+
+
+
+
+TABLE III
+
+
+
+
+
+
+
+The marginal effects plot in Figure XIII illustrates this relationship, showing how different levels of the PFR Index and judicial independence interact with control of corruption, and it uses the following equation:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it}
+\end{equation}
+
+
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+```
+
+In a similar way, increases in opportunities to corrupt, represented by levels of public investment, have a significant and negative effect in control of corruption. This relationship is also reversed for countries with high levels of judicial independence. Figure XIV illustrates this with the following equation:
+
+\begin{equation}
+\ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it} 
+\end{equation}
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+```
+
+In brief, efforts in terms of political finance regulation are effective only in countries with high judicial independence. As Figure XIII shows, the marginal effect of passing new political finance legislation is significant when both judicial independence and the PFR Index are high. Conversely, in countries with low levels of judicial independence, adding rules to the realm of political finance is self-defeating, since control of corruption keeps deteriorating. 
+
+
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+
+
+
+```
+
+On the other hand, Figure XIV illustrates a very similar dynamic between control of corruption, judicial independence and public investment. In countries with weak judicial independence, increasing public investment impacts control of corruption negatively. Conversely, when judicial independence is high, increasing public investment does not necessarily extent opportunities to corrupt. 
+
+### How to Improve Control of Corruption in Latin America? 
+Conclusively, the main results of the analysis confirm that in Latin America, judicial independence is a key variable to control of corruption. Tables II and III highlight the negative correlation between the PFR Index and the CoC Indicator, as well as between public investment and the CoC Indicator. This means that, within our sample of countries and according to the data, an increase of the PFR Index and/or public investment is significantly correlated to worse performance in control of corruption. However, when both variables are separately interrelated with judicial independence, the correlation with control of corruption turns positive. This means that judicial independence is central for political finance regulation and public investment. Even more considering that judicial independence shows no significant correlation with control of corruption by itself.     
+According to the theoretical framework, societal control of corruption is the result of the interaction between opportunities and resources to corrupt and different kinds of institutional and social constraints. This equilibrium model theory suggests that improvements in control of corruption ???can occur only gradually and through a succession of radical actions and disequilibria until a new equilibrium is achieved with a superior control of corruption??? (Mungiu-Pippidi, 2015, p. 211) Therefore, domestic agency tends to be more effective than external governance strategies, and the particular context of a country is highly important to draft interventions in order to improve control of corruption. (Mungiu-Pippidi, 2015)
+Besides this, the few countries that developed successful strategies to fight corruption applied their own models of state building, but they also followed others??? fruitful models when required. (Mungiu-Pippidi, 2015) 
+
+# Conclusions
+The main results of the quantitative analysis show that there is a significant worldwide increase in the levels of political finance regulation. This trend was also perceived in Latin America. Furthermore, our statistical model shows that increases in political finance regulation are related with a deterioration of control of corruption. This relationship is statistically significant in the panel estimations. Inversely, the negative relationship between political finance regulation and control of corruption turns out to be positive in countries with high levels of judicial independence. In short, for countries with high levels of judicial independence, an increase in regulation has a positive effect on control of corruption. In the same sense, increases in opportunities to corrupt, represented by levels of public investment, have a significant and negative effect in control of corruption in countries with lower levels of judicial independence. 
+
+\pagebreak
+
+# References
