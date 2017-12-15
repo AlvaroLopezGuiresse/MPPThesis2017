@@ -20,15 +20,16 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE,
-  error = FALSE, cache = 3, fig.pos = 'h', fig.align = 'center',
+  error = FALSE, cache = 2, fig.pos = 'h', fig.align = 'center',
   fig.width = 6, fig.height = 3)
-knitr::opts_knit$set(root.dir = "/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/HealthandCrime-master")
+knitr::opts_knit$set(root.dir = "/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017")
 ```
 
-```{r wd, eval=FALSE}
-source('packages.R')
+```{r wd, eval=TRUE}
+source("packages.R")
 library(plotly)
 library(rworldmap)
+
 
 ```
 
@@ -218,6 +219,8 @@ Finally, Mungiu-Pippidi (2015) confirms the existence of a strong correlation be
 
 Our aim is to study the relation between control of corruption (the dependent variable) and political finance regulation (the independent variable). Following a multivariate model and based on the equilibrium model by Mungiu-Pippidi (2015) we seek to analyse other independent variables such as public investment and judicial independence, considered an opportunity and a constraint of control of corruption, respectively. Figure I shows a graphical representation of this model. 
 
+![image1](figure_i.png)
+
 ```{r figure_i, fig.cap="Equilibrium Model (based on Mungiu-Pippidi (2015))", fig.height = 2.5, eval=FALSE}
 
 
@@ -259,11 +262,11 @@ This section includes the results of a descriptive and inferential statistical a
 
 The results show an overall incidence of Political Finance Regulation in most of the countries in the world and a growing trend of efforts in the matter over the last 20 years. Figure II shows the levels of the PFR Index in 2015. Countries in lighter shades of yellow have lower levels of regulation; inversely, countries in darker red shades have higher ones. In the map one can see clearly the high levels of regulation in Latin America, low levels in Africa and a mixed scenario in Europe and Asia, considering that there is no data in countries like China and Saudi Arabia. 
 
-```{r figure_ii, fig.cap="Worldwide PFR Index, 2015", fig.height = 4.5, eval=FALSE}
+```{r figure_ii, fig.cap="Worldwide PFR Index, 2015", fig.height = 4.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ii.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_ii_vi.csv")
 
-n1 <- joinCountryData2Map(idea_global_2015, joinCode="ISO3", nameJoinColumn= "iso3c")
+n1 <- joinCountryData2Map(df, joinCode="ISO3", nameJoinColumn= "iso3c")
 map1 <- mapCountryData(n1, nameColumnToPlot = "idea_pct", mapTitle = "PFR Index 2015", colourPalette = "heat", catMethod = "pretty")
 
 ```
@@ -271,9 +274,9 @@ map1 <- mapCountryData(n1, nameColumnToPlot = "idea_pct", mapTitle = "PFR Index 
 
 The yearly increase of regulation is evident in Figure III which shows the changes over time of the PFR Index. This figure displays an increasing trend in the regulation effort in all regions. The slope remains positive for the period 1996-2005, increasing its steepness after 2006. Europe is the region that increased its party finance regulation the most, implementing 55% of regulations, with notable growth after 2010. The Americas and Asia occupy the second and third places respectively in terms of adoption of regulations. 
 
-```{r figure_iii, fig.cap="Worldwide PFR Index, 2015", fig.height = 4, eval=FALSE}
+```{r figure_iii, fig.cap="Worldwide PFR Index, 2015", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_iii.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_iii.csv")
 
 df <- df %>% 
   rename(Region = un_region_name)
@@ -292,9 +295,9 @@ p
 
 The increase of Party Finance Regulation has not been reflected in control of corruption. Figure IV displays the increasing trend of the PFR Index but also shows that the average of the CoC Indicator has stagnated and even displays a slight downward trajectory. The evolution of both suggests that the political finance regulation efforts made by different countries are not associated with an overall improvement in the control of corruption.
 
-```{r figure_iv, fig.cap="PFR Index and CoC Indicator time series, 1996-2015", fig.height = 4, eval=FALSE}
+```{r figure_iv, fig.cap="PFR Index and CoC Indicator time series, 1996-2015", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_iv.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_iv.csv")
 
 p <- ggplot(df, aes(x = year_panel)) + 
   geom_line(aes(y = pfr)) +
@@ -312,9 +315,9 @@ p
 
 The overall increase in the PFR Index is reflected in all the categories of the database, although there are some small differences to note. Figure V shows that the regulation area that has increased the most in relative terms in all regions is oversight and sanctions, while the public funding has been the least regulated issue. Nonetheless, the figure displays that all the sub-indexes have increased systematically since 1996. This reflects a widespread trend around the world to increase Party Finance Regulation in a comprehensive manner, including regulations across the whole spectrum. 
 
-```{r figure_v, fig.cap="PFR Sub-Index Level by region, 1996 and 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 4, eval=FALSE}
+```{r figure_v, fig.cap="PFR Sub-Index Level by region, 1996 and 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_v.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_v.csv")
 
 df$year_panel <- df$year_panel %>% 
   as.character()
@@ -346,9 +349,9 @@ p
 
 The worldwide increase in the PFR Index is also reflected in the Latin American region. Figure VI shows that most countries have a medium or a high degree of PFR. However, there are exceptions like Bolivia, Venezuela and Paraguay, which show low levels in the PFR Index. 
 
-```{r figure_vi, fig.cap="PFR Index Latin America, 2015", fig.height = 4, eval=FALSE}
+```{r figure_vi, fig.cap="PFR Index Latin America, 2015", fig.height = 4}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ii_vi.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_ii_vi.csv")
 
 n2 <- joinCountryData2Map(df, joinCode="ISO3", nameJoinColumn="iso3c")
 map2 <- mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="PFR Index Latin America 2015",mapRegion="latin america", colourPalette = "heat") 
@@ -360,9 +363,9 @@ map2 <- mapCountryData(n2, nameColumnToPlot="idea_pct", mapTitle="PFR Index Lati
 
 Following the worldwide trend, Figure VII shows the evolution for the PFR Index and its subcomponents for Latin America. The regulation category that increased the most is oversight and sanctions. In second place appears regulation on spending, followed by bans and limits on private income and public funding.
 
-```{r figure_vii, fig.cap="PFR Sub-index Time Series in Latin America, 1996 to 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 4, eval=FALSE}
+```{r figure_vii, fig.cap="PFR Sub-index Time Series in Latin America, 1996 to 2015. BLPI: Bans and limits on private income, PF: Public funding, RS: Regulation on spending, OS: Oversight and sanctions", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_vii.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_vii.csv")
 
 df$index_type <- df$index_type %>% 
   as.character()
@@ -391,9 +394,9 @@ p
 
 Moreover, Figure VIII shows the levels of the PFR Index in 2006 and 2015 for Latin American countries. Results indicate that Ecuador is the country with the biggest increase in party finance regulation, followed by Mexico and Colombia. Contrarily, Paraguay and Dominican Republic show no change.
 
-```{r figure_viii, fig.cap="PFR Index Level in Latin America, 2006 and 2015", fig.height = 4, eval=FALSE}
+```{r figure_viii, fig.cap="PFR Index Level in Latin America, 2006 and 2015", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_viii.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_viii.csv")
 
 df$year_panel <- df$year_panel %>% 
   as.factor() 
@@ -415,9 +418,9 @@ p
 As with the rest of the world, in Latin America an increase in the PFR Index is not reflected on the CoC Indicator. Figure IX shows the average change in the level of political finance regulation for the region and the average change of the CoC Indicator from 1996 to 2015. The Figure also shows that while the CoC Indicator slightly improves for the period 1996-2010 in Latin America, this is reversed after year 2011 with a strong deterioration of the levels of corruption.
 
 
-```{r figure_ix, fig.cap="Mean PFR Index and CoC Indicator series in Latin America, 2006-2015", fig.height = 4, eval=FALSE}
+```{r figure_ix, fig.cap="Mean PFR Index and CoC Indicator series in Latin America, 2006-2015", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_ix.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_ix.csv")
 
 df <- df %>% 
   rename(PFR.Index = pfr)
@@ -439,9 +442,9 @@ p
 The data shows that countries that increased their regulation the most between 2006 and 2015 are Ecuador, Mexico and Colombia, which is represented in Figure X. This suggests that increases in legislation are not always correlated with a reduction in the control of corruption. Ecuador seems to be the exception by showing an improvement in its control of corruption. In addition, Guatemala, Honduras and Uruguay have also shown improvements in the last decade. 
 
 
-```{r figure_x, fig.cap="PFR Index and World Bank Control of Corruption Change in Latin America, 2006-2015", fig.height = 4, eval=FALSE}
+```{r figure_x, fig.cap="PFR Index and World Bank Control of Corruption Change in Latin America, 2006-2015", fig.height = 2.5}
 
-df <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_x.csv")
+df <- read.csv("3) FIGURES & ANALYSiS/figure_x.csv")
 
 df <- df %>% 
   mutate(key = ifelse(key == "coc_diff", "CoC", "PFR.Index"))
@@ -461,10 +464,10 @@ The WEF Judicial Independence Indicator, as illustrated in Figure X, complements
 
 
 
-```{r figure_xi, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=FALSE}
+```{r figure_xi, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=F}
 
 
-df2006 <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_xi.csv")
+df2006 <- read.csv("3) FIGURES & ANALYSiS/figure_xi.csv")
 
 p2006 <- plot_ly(df2006, x = ~idea_pct, y = ~CoC_recoded, color = ~wefji, marker = list(size = 30),
                  text= ~iso3c, type='scatter', mode= 'markers', title="Effect of Political Finance Regulation on Control of Corruption 2006") %>% 
@@ -491,10 +494,10 @@ p2006
 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=FALSE}
+```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4, eval=F}
 
 
-df2015 <- read.csv("/Users/alvarolopezguiresse/OneDrive/Documents/[0.2] Data Management in R/MPPThesis2017/3) FIGURES & ANALYSiS/figure_xii.csv")
+df2015 <- read.csv("3) FIGURES & ANALYSiS/figure_xii.csv")
 
 p <- plot_ly(df2015, x = ~idea_pct, y = ~CoC_recoded, color = ~wefji, marker = list(size = 30),
              text= ~iso3c, type='scatter', mode= 'markers', 
@@ -517,6 +520,8 @@ p
 
 ```
 
+
+\pagebreak
 
 ## Panel Regression Model of Latin America
 
@@ -547,7 +552,7 @@ With respect to the results, party finance regulation has a significant positive
 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xiii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
@@ -599,7 +604,7 @@ The tables show that increases in political finance regulation are related with 
 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xiv, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
@@ -620,7 +625,7 @@ TABLE II
 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xv, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
@@ -649,7 +654,7 @@ The marginal effects plot in Figure XIII illustrates this relationship, showing 
 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xvi, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
@@ -661,7 +666,7 @@ In a similar way, increases in opportunities to corrupt, represented by levels o
 \ CoC_{it} = \beta_{0} +  \beta_{1} PFR_{it} + \beta_{2} PI_{it} + \beta_{3} JI_{it} 
 \end{equation}
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xvii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
@@ -670,7 +675,7 @@ In a similar way, increases in opportunities to corrupt, represented by levels o
 In brief, efforts in terms of political finance regulation are effective only in countries with high judicial independence. As Figure XIII shows, the marginal effect of passing new political finance legislation is significant when both judicial independence and the PFR Index are high. Conversely, in countries with low levels of judicial independence, adding rules to the realm of political finance is self-defeating, since control of corruption keeps deteriorating. 
 
 
-```{r figure_xii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5, eval=FALSE}
+```{r figure_xviii, fig.cap="CoC Indicator, PFR Index and WEF Judicial Independence, 2006", fig.height = 4.5}
 
 
 
