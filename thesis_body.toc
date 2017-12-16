@@ -1,0 +1,10 @@
+\contentsline {section}{Introduction}{i}{section*.1}
+\contentsline {section}{Data Management Description}{1}{section*.3}
+\contentsline {section}{Methodology}{1}{section*.4}
+\contentsline {section}{Results}{3}{section*.5}
+\contentsline {subsection}{The State of Political Finance Regulation in the World}{4}{section*.6}
+\contentsline {subsection}{Political Finance Regulation and Control of Corruption in Latin America}{5}{section*.7}
+\contentsline {subsection}{Panel Regression Model of Latin America}{7}{section*.8}
+\contentsline {subsubsection}{Variable Description}{7}{section*.9}
+\contentsline {subsubsection}{Multivariate Regression Model}{8}{section*.10}
+\contentsline {section}{Conclusions}{11}{section*.11}

@@ -3,6 +3,7 @@
 library(dplyr)
 library(plm)
 library(stargazer)
+library(zoo)
 
 
 
@@ -22,7 +23,7 @@ countries <- c("ARG", "BOL", "BRA", "CHL", "COL", "CRI", "DOM", "ECU", "GTM",
                "HND", "MEX", "NIC", "PAN", "PER", "PRY", "SLV", "URY", "VEN")
 
 idea_excel <- idea_excel %>% 
-  rename(iso3c = Ticker, year_panel = Year) %>% 
+  dplyr::rename(iso3c = Ticker, year_panel = Year) %>% 
   dplyr::select(iso3c, year_panel, blpi_pct, pf_pct, rs_pct, os_pct, idea_pct, CoC, un_region_name)
 
 idea_excel <- idea_excel %>% 

@@ -24,7 +24,7 @@ countries <- c("ARG", "BOL", "BRA", "CHL", "COL", "CRI", "DOM", "ECU", "GTM",
                "HND", "MEX", "NIC", "PAN", "PER", "PRY", "SLV", "URY", "VEN")
 
 
-# function to extrct the year form attribution variable (legal source quoted
+# function to extract the year form attribution variable (legal source quoted
 # for every question) from the appendix in the IDEA survey.
 clean_text <- function(whyisthis) {
   
@@ -126,7 +126,6 @@ drop <-  paste0("Ques_", c(14, 16, 18, 20, 21, 22, 24, 27, 28, 32, 34, 40, 42))
 idea_appendix <- idea_appendix %>% 
   filter(iso3c %in% countries) %>% 
   filter(!is.na(year_enforcement))
-
 
 idea_appendix <- idea_appendix[ , -which(names(idea_appendix) %in% drop)] %>% 
   as.data.frame()
